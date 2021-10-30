@@ -1,24 +1,13 @@
-import { StatusBar } from 'expo-status-bar';
+import 'react-native-gesture-handler';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import Cities from './components/Cities'
-import Forms from './components/Forms'
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text> wheatherApp - IBM SkillsBuild </Text>
-      <StatusBar style="auto" />
-      <Forms/>
-      <Cities/>
-    </View>
-  );
-}
+import { LogBox } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+import Navigation from './navigation/Navigation';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+LogBox.ignoreAllLogs();
+
+export default function App() {
+    return (
+        <Navigation />
+    );
+};
