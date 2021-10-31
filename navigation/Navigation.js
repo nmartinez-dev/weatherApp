@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { Icon } from 'react-native-elements';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import Home from '../components/Home';
-import Cities from '../components/Cities';
+import CitiesStack from '../navigation/CitiesStack';
 import Maps from '../components/Maps';
 import AboutUs from '../components/AboutUs';
 
@@ -17,7 +17,7 @@ function screenOptions (route, color) {
         case 'home':
             iconName='home'
             break;
-        case 'cities':
+        case 'cities-stack':
             iconName='city'
             break;
         case 'maps':
@@ -56,8 +56,8 @@ export default function Navigation () {
                     options={{ title: 'Home' }}
                 />
                 <Tab.Screen
-                    name="cities"
-                    component={Cities}
+                    name="cities-stack"
+                    component={CitiesStack}
                     options={{ title: 'Ciudades' }}
                 />
                 <Tab.Screen

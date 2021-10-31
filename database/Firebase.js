@@ -8,7 +8,7 @@ const firebaseConfig = {
     projectId: "weatherapp-ibm",
     storageBucket: "weatherapp-ibm.appspot.com",
     messagingSenderId: "394447721770",
-    appId: "1:394447721770:web:760d82e5b7b975a1477a53",
+    appId: "1:394447721770:web:760d82e5b7b975a1477a53"
 };
   
 firebase.initializeApp(firebaseConfig);
