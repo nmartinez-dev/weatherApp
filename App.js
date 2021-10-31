@@ -1,13 +1,19 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import { LogBox } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-import Navigation from './navigation/Navigation';
+import { LogBox, StatusBar } from 'react-native';
+import Animate from './utils/Animate';
 
-LogBox.ignoreAllLogs();
+LogBox.ignoreAllLogs();         // quitar antes de renderizar
 
 export default function App() {
     return (
-        <Navigation />
+        <>
+            <StatusBar
+                animated={true}
+                backgroundColor="#188ea8"
+                barStyle="light-content"
+            />
+            <Animate />
+        </>
     );
 };

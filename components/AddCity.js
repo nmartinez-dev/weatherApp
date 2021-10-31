@@ -33,7 +33,7 @@ export default function AddCity ({ navigation }) {
                 rightIcon={{
                     type: 'material-community',
                     name: 'city',
-                    color: '#c2c2c2',
+                    color: '#b3b3b3',
                 }}
             />
             <Button
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
         margin: 10,
     },
     btn: {
-        backgroundColor: '#567aba',
+        backgroundColor: '#188ea8',
         margin: 10,
     },
 });

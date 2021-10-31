@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, ScrollView, Alert } from 'react-native';
 import { Icon, ListItem } from 'react-native-elements';
+import Loading from '../utils/Loading';
 import { db } from '../database/Firebase';
 
 export default function Cities ({ navigation }) {
@@ -33,42 +34,53 @@ export default function Cities ({ navigation }) {
         });
     }, []);
 
-    return (
-        <View style={styles.container}>
-            {
-                cities.map((city) => {
-                    return(
-                        <View key={city.route}>
-                            <ListItem
-                                styles={styles.list}
-                                bottomDivider={true}
-                            >
-                                <ListItem.Content>
-                                    <ListItem.Title> {city.title} </ListItem.Title>
-                                </ListItem.Content>
-                                <Icon                   // resolver achicar tamaño y direccionar
-                                    reverse
-                                    type='material-community'
-                                    name='close'
-                                    reverseColor='#c2c2c2'
-                                    color='#fff'
-                                    onPress={() => removeCity(city.route, city.title)}
-                                />
-                            </ListItem>
-                        </View>
-                    );
-                })
-            }
-            <Icon
-                reverse
-                type='material-community'
-                name='plus'
-                color='#567aba'
-                containerStyle={styles.addCities}
-                onPress={() => navigation.navigate('add-city')}
-            />
-        </View>
-    );
+
+    if (cities == '') {
+        return (
+            <Loading isVisible={true} text='Cargando ciudades...' />
+        );
+    } else {
+        return (
+            <View style={styles.container}>
+                <ScrollView>
+                    {
+                        cities.map((city) => {
+                            return(
+                                <View key={city.route}>
+                                    <ListItem
+                                        styles={styles.list}
+                                        bottomDivider={true}
+                                    >
+                                        <ListItem.Content>
+                                            <ListItem.Title> {city.title} </ListItem.Title>
+                                        </ListItem.Content>
+                                        <Icon
+                                            reverse
+                                            type='material-community'
+                                            name='close'
+                                            color='#b3b3b3'
+                                            reverseColor='#fff'
+                                            size={9}
+                                            containerStyle={{ margin: 0 }}
+                                            onPress={() => removeCity(city.route, city.title)}
+                                        />
+                                    </ListItem>
+                                </View>
+                            );
+                        })
+                    }
+                </ScrollView>
+                <Icon
+                    reverse
+                    type='material-community'
+                    name='plus'
+                    color='#188ea8'
+                    containerStyle={styles.addCities}
+                    onPress={() => navigation.navigate('add-city')}
+                />
+            </View>
+        );
+    };
 };
 
 const styles = StyleSheet.create({
@@ -77,7 +89,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
     },
     list: {
-        
+
     },
     addCities: {
         position: 'absolute',

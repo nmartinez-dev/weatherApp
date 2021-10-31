@@ -48,7 +48,7 @@ export default function Navigation () {
                 screenOptions={({ route }) => ({
                     tabBarIcon: ({ color }) => screenOptions(route, color),
                 })}
-                barStyle={{ backgroundColor: '#567aba' }}
+                barStyle={{ backgroundColor: '#188ea8' }}
             >
                 <Tab.Screen
                     name="home"
