@@ -6,6 +6,7 @@ import Animate from './utils/Animate';
 LogBox.ignoreAllLogs();         // quitar antes de renderizar
 
 export default function App() {
+
     return (
         <>
             <StatusBar
