@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, ScrollView, Alert } from 'react-native';
 import { Icon, ListItem } from 'react-native-elements';
-import Loading from '../utils/Loading';
 import { db } from '../database/Firebase';
+import Loading from '../utils/Loading';
 
 export default function Cities ({ navigation }) {
     const [cities, setCities] = useState([]);
@@ -48,7 +48,6 @@ export default function Cities ({ navigation }) {
                             return(
                                 <View key={city.route}>
                                     <ListItem
-                                        styles={styles.list}
                                         bottomDivider={true}
                                     >
                                         <ListItem.Content>
@@ -86,10 +85,7 @@ export default function Cities ({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
-    },
-    list: {
-
+        backgroundColor: '#188ea80a',
     },
     addCities: {
         position: 'absolute',
