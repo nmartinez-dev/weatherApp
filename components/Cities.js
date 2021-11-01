@@ -42,7 +42,6 @@ export default function Cities ({ navigation }) {
     }, []);
 
     const getCity=(city)=>{
-      console.log(city)
       saveWeather(city);
       saveStatus(true);
     }
