@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, ScrollView, Alert } from 'react-native';
+import { StyleSheet, View, ScrollView, Alert, Text } from 'react-native';
 import { Icon, ListItem } from 'react-native-elements';
 import { db } from '../database/Firebase';
 import Loading from '../utils/Loading';
+import Weather from './Weather';
 
 export default function Cities ({ navigation }) {
     const [cities, setCities] = useState([]);
+    const [req, saveReq] = useState({});
+    const [name, saveName] = useState({});
+    const [main, saveMain] = useState({});
+    const [weather, saveWeather] = useState('Buenos Aires');
+    const [status, saveStatus] = useState(false);
+    const [bgcolor, guardarBgcolor] = useState('rgb(71, 149, 212)');
 
     const citiesRef = db.ref().child('cities');
 
@@ -34,6 +41,12 @@ export default function Cities ({ navigation }) {
         });
     }, []);
 
+    const getCity = (city) => {
+        saveWeather(city);
+        saveStatus(true);
+    };
+
+    const bgColorApp = { backgroundColor:bgcolor }
 
     if (cities == '') {
         return (
@@ -41,13 +54,16 @@ export default function Cities ({ navigation }) {
         );
     } else {
         return (
-            <View style={styles.container}>
+            <View style={[styles.container, bgColorApp]}>
                 <ScrollView>
                     {
                         cities.map((city) => {
                             return(
+                              <>
                                 <View key={city.route}>
                                     <ListItem
+                                        onPress={() => getCity(city.title)}
+                                        styles={styles.list}
                                         bottomDivider={true}
                                     >
                                         <ListItem.Content>
@@ -65,9 +81,16 @@ export default function Cities ({ navigation }) {
                                         />
                                     </ListItem>
                                 </View>
+                              </>
                             );
                         })
                     }
+                    <Weather
+                        weather={weather}
+                        saveWeather={saveWeather}
+                        status={status}
+                        saveStatus={saveStatus}
+                    />
                 </ScrollView>
                 <Icon
                     reverse
@@ -86,6 +109,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#188ea80a',
+        justifyContent:'center',
     },
     addCities: {
         position: 'absolute',
