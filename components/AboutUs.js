@@ -1,22 +1,12 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { Button, Overlay } from 'react-native-elements';
+import { Button } from 'react-native-elements';
+import References from './References';
+import Feedback from './Feedback';
 
 export default function AboutUs () {
-
-    // const references = () => {
-    //     return (
-    //         <Overlay
-    //             isVisible={true}
-    //             windowBackgroundColor='rgba(0, 0, 0, 0.5)'
-    //             overlayBackgroundColor='transparent'
-    //             overlayStyle={styles.overlay}
-    //             // onBackdropPress={closeModal}
-    //         >
-    //             <Text> Aca van las referencias y enlaces externos </Text>
-    //         </Overlay>
-    //     );
-    // };
+    const [isVisible, setIsVisible] = useState(false);
+    const [visible, setVisible] = useState(false);
 
     return (
         <View style={styles.container}>
@@ -25,14 +15,16 @@ export default function AboutUs () {
                 <Button
                     title='Referencias'
                     buttonStyle={styles.btn}
-                    // onPress={references}
+                    onPress= {() => setIsVisible(true)}
                 />
                 <Button
                     title='Feedback!'
                     buttonStyle={styles.btn}
-                    // onPress={References()}
+                    onPress={() => setVisible(true)}
                 />
             </View>
+            <References isVisible={isVisible} setIsVisible={setIsVisible} />
+            <Feedback visible={visible} setVisible={setVisible} />
         </View>
     );
 };
@@ -52,10 +44,5 @@ const styles = StyleSheet.create({
         backgroundColor: '#188ea8',
         margin: 10,
         borderRadius: 8,
-    },
-    overlay: {
-        height: 'auto',
-        width: '90%',
-        backgroundColor: '#fff',
     },
 });
