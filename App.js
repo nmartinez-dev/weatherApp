@@ -1,24 +1,20 @@
-import { StatusBar } from 'expo-status-bar';
+import 'react-native-gesture-handler';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import Cities from './components/Cities'
-import Forms from './components/Forms'
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text> wheatherApp - IBM SkillsBuild </Text>
-      <StatusBar style="auto" />
-      <Forms/>
-      <Cities/>
-    </View>
-  );
-}
+import { LogBox, StatusBar } from 'react-native';
+import Animate from './utils/Animate';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+LogBox.ignoreAllLogs();         // quitar antes de renderizar
+
+export default function App() {
+
+    return (
+        <>
+            <StatusBar
+                animated={true}
+                backgroundColor="#188ea8"
+                barStyle="light-content"
+            />
+            <Animate />
+        </>
+    );
+};
