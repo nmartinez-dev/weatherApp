@@ -11,12 +11,30 @@ export default function CitiesStack () {
             <Stack.Screen
                 name='cities'
                 component={Cities}
-                options={{ title: 'Ciudades' }}
+                options={{ title: 'Ciudades',
+                        headerTitleAlign:'center',
+                        headerStyle:{
+                          backgroundColor:'#188ea8'
+                        },
+                        headerTintColor:'#FFF',
+                        headerTitleStyle:{
+                          fontWeight:'bold'
+                        },
+                        }}
             />
             <Stack.Screen
                 name='add-city'
                 component={AddCity}
-                options={{ title: 'Agregar Ciudad' }}
+                options={{ title: 'Agregar Ciudad',
+                        headerTitleAlign:'center',
+                        headerStyle:{
+                          backgroundColor:'#188ea8'
+                        },
+                        headerTintColor:'#FFF',
+                        headerTitleStyle:{
+                        fontWeight:'bold'
+                        },
+                        }}
             />
         </Stack.Navigator>
     );

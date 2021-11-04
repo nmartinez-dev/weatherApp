@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { Button, Overlay, Icon } from 'react-native-elements';
 import { StyleSheet, View, ScrollView, Alert, Text, Image } from 'react-native';
 
-const Weather=({weather, saveWeather, status, saveStatus})=>{
+const Weather=({weather, saveWeather, status, saveStatus, visibleWeather, setVisibleWeather})=>{
   const [resultado, guardarResultado]=useState({})
 
   useEffect(()=>{
@@ -52,6 +53,13 @@ const Weather=({weather, saveWeather, status, saveStatus})=>{
   } else {
   return (
     <>
+    <Overlay
+    visible={visibleWeather}
+    backdropStyle={{ backgroundColor: '#188ea8' }}
+    overlayStyle={styles.overlay}
+    onBackdropPress={() => setVisibleWeather(false)}
+    >
+
     <View style={styles.clima}>
       <Text style={[styles.texto, styles.actual]}>
         {parseInt(main.temp-kelvin)}
@@ -81,13 +89,32 @@ const Weather=({weather, saveWeather, status, saveStatus})=>{
         <Text style={styles.texto}>{weather}</Text>
       </View>
     </View>
+
+    <Button
+        title='Cerrar'
+        titleStyle={{ color: '#000' }}
+        buttonStyle={styles.closeOverlay}
+        onPress= {() => setVisibleWeather(false)}
+        icon={
+            <Icon
+                type='material-community'
+                name='close'
+                color='#000'
+                size={17}
+            />
+        }
+    />
+
+    </Overlay>
     </>
   );
 }
 }
 const styles=StyleSheet.create({
   clima:{
-    marginBottom:20
+    alignItems:'center',
+    marginBottom:20,
+    backgroundColor: '#188ea8'
   },
   texto:{
     color:'#FFF',
@@ -112,6 +139,19 @@ const styles=StyleSheet.create({
   temperaturas:{
     flexDirection:'row',
     justifyContent:'center'
-  }
+  },
+  overlay: {
+      height: 'auto',
+      width: 'auto',
+      backgroundColor: '#188ea8',
+      padding: 30,
+      borderRadius: 8,
+  },
+  closeOverlay: {
+      backgroundColor: '#188ea8',
+      borderBottomWidth: 1,
+      borderBottomColor: '#000',
+      marginTop: 40,
+  },
 });
 export default Weather;

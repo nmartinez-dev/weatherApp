@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, ScrollView, Alert, Text } from 'react-native';
+import { StyleSheet, View, ScrollView, Alert, Text, ImageBackground } from 'react-native';
 import { Icon, ListItem } from 'react-native-elements';
 import { db } from '../database/Firebase';
 import Loading from '../utils/Loading';
 import Weather from './Weather';
+import Background from '../assets/img/playa.jpeg';
 
 export default function Cities ({ navigation }) {
     const [cities, setCities] = useState([]);
@@ -13,6 +14,8 @@ export default function Cities ({ navigation }) {
     const [weather, saveWeather] = useState('Buenos Aires');
     const [status, saveStatus] = useState(false);
     const [bgcolor, guardarBgcolor] = useState('rgb(71, 149, 212)');
+    //estados para mostrar o no el clima
+    const [visibleWeather, setVisibleWeather] = useState(false);
 
     const citiesRef = db.ref().child('cities');
 
@@ -42,6 +45,7 @@ export default function Cities ({ navigation }) {
     }, []);
 
     const getCity = (city) => {
+        setVisibleWeather(true);
         saveWeather(city);
         saveStatus(true);
     };
@@ -54,7 +58,12 @@ export default function Cities ({ navigation }) {
         );
     } else {
         return (
-            <View style={[styles.container, bgColorApp]}>
+          <ImageBackground
+              source={Background}
+              resizeMode='cover'
+              style={styles.image}
+          >
+            <View style={styles.container}>
                 <ScrollView>
                     {
                         cities.map((city) => {
@@ -63,7 +72,6 @@ export default function Cities ({ navigation }) {
                                 <View key={city.route}>
                                     <ListItem
                                         onPress={() => getCity(city.title)}
-                                        styles={styles.list}
                                         bottomDivider={true}
                                     >
                                         <ListItem.Content>
@@ -90,6 +98,8 @@ export default function Cities ({ navigation }) {
                         saveWeather={saveWeather}
                         status={status}
                         saveStatus={saveStatus}
+                        visibleWeather={visibleWeather}
+                        setVisibleWeather={setVisibleWeather}
                     />
                 </ScrollView>
                 <Icon
@@ -101,6 +111,7 @@ export default function Cities ({ navigation }) {
                     onPress={() => navigation.navigate('add-city')}
                 />
             </View>
+          </ImageBackground>
         );
     };
 };
@@ -108,12 +119,19 @@ export default function Cities ({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#188ea80a',
         justifyContent:'center',
     },
     addCities: {
         position: 'absolute',
         bottom: 10,
         right: 10,
+    },
+    list:{
+      backgroundColor: '#ffffffb8',
+      borderRadius: 50,
+    },
+    image: {
+        flex: 1,
+        justifyContent: "center",
     },
 });
