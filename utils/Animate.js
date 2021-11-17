@@ -7,6 +7,7 @@ export default function Animate (props) {
     const { theme } = props;
 
     const [animated, setAnimated] = useState(false);
+    const [name] = useState(new Animated.Value(0));
     const [show] = useState(new Animated.Value(0));
     const [size] = useState(new Animated.Value(1));
 
@@ -17,6 +18,12 @@ export default function Animate (props) {
     })
 
     useEffect(() => {
+        Animated.timing(name, {
+            toValue: 1,
+            duration: 1000,
+            delay: 1000,
+            useNativeDriver: false,
+        }).start(() =>
         Animated.timing(show, {
             toValue: 1,
             duration: 1000,
@@ -36,12 +43,22 @@ export default function Animate (props) {
                 delay: 500,
                 useNativeDriver: false,
             }),
-        ]).start(() => setAnimated(true)))
+            Animated.timing(name, {
+                toValue: 0,
+                duration: 1000,
+                delay: 1000,
+                useNativeDriver: false,
+            }),
+        ]).start(() => setAnimated(true))))
     }, []);
 
     if (!animated) {
         return (
             <View style={[styles.container, theme.backgroundColor]}>
+                <Animated.Text
+                    style={[styles.name, {opacity: name}]}
+                > ¡ WeatherApp !
+                </Animated.Text>
                 <Animated.Image
                     style={[styles.image, {opacity: show, transform: [{scale: size}, {rotate: rotation}]}]}
                     source={Sun}
@@ -60,6 +77,10 @@ const styles = StyleSheet.create ({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    name: {
+        fontSize: 35,
+        fontWeight: 'bold',
     },
     image: {
         width: 120,
