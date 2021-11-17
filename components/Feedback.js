@@ -1,16 +1,18 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import { Overlay, Button, Icon } from 'react-native-elements';
+import { useTheme } from '@react-navigation/native';
 import * as Linking from 'expo-linking';
 
 export default function Feedback (props) {
     const { visible, setVisible } = props;
+    const { colors } = useTheme();
 
     return (
         <Overlay
             isVisible={visible}
             backdropStyle={{ backgroundColor: '#00000030' }}
-            overlayStyle={styles.overlay}
+            overlayStyle={[styles.overlay, colors.background]}
             onBackdropPress={() => setVisible(false)}
         >
             <Text style={styles.title}> ¡ Tu opinión es importante para nosotros ! </Text>
@@ -26,7 +28,7 @@ export default function Feedback (props) {
             <Button
                 title='Cerrar'
                 titleStyle={{ color: '#000' }}
-                buttonStyle={styles.closeOverlay}
+                buttonStyle={[styles.closeOverlay, colors.background]}
                 onPress= {() => setVisible(false)}
                 icon={
                     <Icon
@@ -45,7 +47,6 @@ const styles = StyleSheet.create ({
     overlay: {
         height: 'auto',
         width: '90%',
-        backgroundColor: '#188ea8',
         padding: 30,
         borderRadius: 8,
     },
@@ -60,7 +61,6 @@ const styles = StyleSheet.create ({
         marginTop: 40,
     },
     closeOverlay: {
-        backgroundColor: '#188ea8',
         borderBottomWidth: 1,
         borderBottomColor: '#000',
         marginTop: 40,

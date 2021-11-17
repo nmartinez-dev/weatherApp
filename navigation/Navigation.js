@@ -1,9 +1,8 @@
 import React from "react";
-import {  } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 import { Icon } from 'react-native-elements';
+import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import Home from '../components/Home';
+import HomeStack from '../navigation/HomeStack';
 import CitiesStack from '../navigation/CitiesStack';
 import Maps from '../components/Maps';
 import AboutUs from '../components/AboutUs';
@@ -14,7 +13,7 @@ function screenOptions (route, color) {
     let iconName;
 
     switch (route.name) {
-        case 'home':
+        case 'home-stack':
             iconName='home'
             break;
         case 'cities-stack':
@@ -40,19 +39,29 @@ function screenOptions (route, color) {
     );
 };
 
-export default function Navigation () {
+export default function Navigation (props) {
+    const { theme } = props;
+
+    const MyTheme = {
+        colors: {
+            background: theme.backgroundColor,
+            text: theme.color,
+            border: theme.borderColor,
+        }
+    };
+
     return (
-        <NavigationContainer>
+        <NavigationContainer theme={MyTheme} >
             <Tab.Navigator
-                initialRouteName='home'
+                initialRouteName='home-stack'
                 screenOptions={({ route }) => ({
                     tabBarIcon: ({ color }) => screenOptions(route, color),
                 })}
-                barStyle={{ backgroundColor: '#188ea8' }}
+                barStyle={theme.backgroundColor}
             >
                 <Tab.Screen
-                    name="home"
-                    component={Home}
+                    name="home-stack"
+                    component={HomeStack}
                     options={{ title: 'Home' }}
                 />
                 <Tab.Screen
