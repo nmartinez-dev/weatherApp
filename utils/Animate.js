@@ -3,7 +3,9 @@ import { View, StyleSheet, Animated } from 'react-native';
 import Sun from '../assets/img/sun.png';
 import Navigation from '../navigation/Navigation';
 
-export default function Animate () {
+export default function Animate (props) {
+    const { theme } = props;
+
     const [animated, setAnimated] = useState(false);
     const [show] = useState(new Animated.Value(0));
     const [size] = useState(new Animated.Value(1));
@@ -11,7 +13,7 @@ export default function Animate () {
     const spinRotation = new Animated.Value(0);
     const rotation = spinRotation.interpolate({
         inputRange: [0, 1],
-        outputRange: ['0deg', '360deg'],
+        outputRange: ['0deg', '720deg'],
     })
 
     useEffect(() => {
@@ -39,7 +41,7 @@ export default function Animate () {
 
     if (!animated) {
         return (
-            <View style={styles.container}>
+            <View style={[styles.container, theme.backgroundColor]}>
                 <Animated.Image
                     style={[styles.image, {opacity: show, transform: [{scale: size}, {rotate: rotation}]}]}
                     source={Sun}
@@ -48,7 +50,7 @@ export default function Animate () {
         );
     } else {
         return (
-            <Navigation />
+            <Navigation theme={theme} />
         );
     };
 };
@@ -57,7 +59,6 @@ const styles = StyleSheet.create ({
     container: {
         flex: 1,
         alignItems: 'center',
-        backgroundColor: '#188ea8',
         justifyContent: 'center',
     },
     image: {

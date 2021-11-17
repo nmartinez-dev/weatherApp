@@ -1,27 +1,44 @@
 import React from 'react';
 import { StyleSheet, Text, View, ImageBackground } from 'react-native';
+import { Icon } from 'react-native-elements/dist/icons/Icon';
+import { useTheme } from '@react-navigation/native';
 import Background from '../assets/img/playa.jpeg';
 
-export default function Home () {
+export default function Home ({ navigation }) {
+    const { colors } = useTheme();
+
     return (
         <ImageBackground
             source={Background}
             resizeMode='cover'
             style={styles.image}
         >
+            <View style={styles.iconContainer}>
+                <Icon
+                    type='material-community'
+                    name='account-cog'
+                    color='#000'
+                    size={30}
+                    onPress={() => navigation.navigate('settings')}
+                />
+            </View>
             <View style={styles.container}>
-                <Text style={styles.title}> ¡ WeatherApp !</Text>
-                <Text style={styles.subtitle}> -- Consulta el clima de tu ciudad favorita -- </Text>
-                <View style={styles.useContainer}>
-                    <Text style={styles.useTitle}> Modo de uso: </Text>
-                    <Text> - Paso 1: Vé a la sección de ciudades y agrega una ciudad al listado. </Text>
-                    <Text> - Paso 2: Localiza tu ciudad en el mapa. </Text>
-                    <Text> - Paso 3: Consulta la temperatura de la ciudad agregada. </Text>
-                    <Text style={styles.useLetsGoTitle}> ¡Listo! </Text>
-                    <Text style={styles.useLetsGoSubtitle}>
-                        ¡Tus ciudades aparecerán en la lista y podrás consultar la 
-                        temperatura cuando lo desees!
+                <View style={styles.modal}>
+                    <Text style={[styles.title, colors.text]}> ¡ WeatherApp !</Text>
+                    <Text style={[styles.subtitle, colors.text]}>
+                        -- Consulta el clima de tu ciudad favorita --
                     </Text>
+                    <View style={styles.useContainer}>
+                        <Text style={styles.useTitle}> Modo de uso: </Text>
+                        <Text> - Paso 1: Vé a la sección de ciudades y agrega una ciudad al listado. </Text>
+                        <Text> - Paso 2: Localiza tu ciudad en el mapa. </Text>
+                        <Text> - Paso 3: Consulta la temperatura de la ciudad agregada. </Text>
+                        <Text style={styles.useLetsGoTitle}> ¡Listo! </Text>
+                        <Text style={styles.useLetsGoSubtitle}>
+                            ¡Tus ciudades aparecerán en la lista y podrás consultar la 
+                            temperatura cuando lo desees!
+                        </Text>
+                    </View>
                 </View>
             </View>
         </ImageBackground>
@@ -31,9 +48,18 @@ export default function Home () {
 const styles = StyleSheet.create({
     image: {
         flex: 1,
-        justifyContent: "center",
+    },
+    iconContainer: {
+        justifyContent: 'flex-end',
+        flexDirection: 'row',
+        paddingRight: 10,
+        paddingTop: 10,
     },
     container: {
+        flex: 1,
+        justifyContent: 'center',
+    },
+    modal: {
         alignItems: 'center',
         alignSelf: 'center',
         backgroundColor: '#ffffffb8',
@@ -42,12 +68,10 @@ const styles = StyleSheet.create({
         borderRadius: 8,
     },
     title: {
-        color: '#188ea8',
         fontSize: 25,
         fontWeight: 'bold',
     },
     subtitle: {
-        color: '#188ea8',
         fontSize: 16,
     },
     useContainer: {

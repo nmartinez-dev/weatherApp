@@ -1,16 +1,18 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Button, Overlay, Icon } from 'react-native-elements';
+import { useTheme } from '@react-navigation/native';
 import * as Linking from 'expo-linking';
 
 export default function References (props) {
     const { isVisible, setIsVisible } = props;
+    const { colors } = useTheme();
 
     return (
         <Overlay
             isVisible={isVisible}
             backdropStyle={{ backgroundColor: '#00000030' }}
-            overlayStyle={styles.overlay}
+            overlayStyle={[styles.overlay, colors.background]}
             onBackdropPress={() => setIsVisible(false)}
         >
             <View style={styles.overlayTitle}>
@@ -37,7 +39,7 @@ export default function References (props) {
             <Button
                 title='Cerrar'
                 titleStyle={{ color: '#000' }}
-                buttonStyle={styles.closeOverlay}
+                buttonStyle={[styles.closeOverlay, colors.background]}
                 onPress= {() => setIsVisible(false)}
                 icon={
                     <Icon
@@ -56,7 +58,6 @@ const styles = StyleSheet.create ({
     overlay: {
         height: 'auto',
         width: 'auto',
-        backgroundColor: '#188ea8',
         padding: 30,
         borderRadius: 8,
     },
@@ -77,7 +78,6 @@ const styles = StyleSheet.create ({
         marginTop: 20,
     },
     closeOverlay: {
-        backgroundColor: '#188ea8',
         borderBottomWidth: 1,
         borderBottomColor: '#000',
         marginTop: 40,

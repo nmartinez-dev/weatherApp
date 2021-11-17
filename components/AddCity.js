@@ -2,45 +2,46 @@ import React, { useState, useRef } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Input, Button } from 'react-native-elements';
 import Toast from 'react-native-easy-toast';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { db } from '../database/Firebase';
 
 export default function AddCity ({ navigation }) {
-    const [cityName, setCityName] = useState('');
+    const [cityName, setCityName] = useState(0);
     const toastRef = useRef();
 
     const citiesRef = db.ref().child('cities');
 
-    function addCity () {
-        if (!cityName) {
-            toastRef.current.show('Campo obligatorio', 1000);
-        } else {
-            citiesRef.push({
-                title: cityName,
-                route: citiesRef.push().key,
-                latitud: 'aca va la latitud del marker en el mapa',
-                longitud: 'aca va la longitud del marker en el mapa',
-            });
-            navigation.goBack();
+    function addCity (lat, lng) {
+        
+        setCityName({lat: lat, lng: lng})
+        console.log(cityName)
         };
-    };
+    
 
     return (
         <View style={styles.container}>
-            <Input
-                placeholder='Ciudad'
-                containerStyle={styles.input}
-                onChange={(e) => setCityName(e.nativeEvent.text)}
-                rightIcon={{
-                    type: 'material-community',
-                    name: 'city',
-                    color: '#b3b3b3',
-                }}
-            />
-            <Button
-                title='Agregar'
-                buttonStyle={styles.btn}
-                onPress={addCity}
-            />
+            <GooglePlacesAutocomplete
+            placeholder='Search'
+            fetchDetails={true}
+        //     onPress={(data, details = null) => setCityName(typeof(
+        //     details.geometry.location.lat)
+        // )}
+            onPress={(data, details = null) => setCityName({
+              lat: details.geometry.location.lat,
+              lng: details.geometry.location.lng,
+            })}
+            query={{
+                key: 'AIzaSyAs2mTAS8Kg1R3RatIiWaEBU3SRtk4Y0CA',
+                language: 'es',
+                
+      }}
+            styles={{
+                container: { position:'absolute', width:"100%" },
+                listView: { backgroundColor: "white" },
+
+            }}
+    />
+ 
             <Toast
                 ref={toastRef}
                 position='center'

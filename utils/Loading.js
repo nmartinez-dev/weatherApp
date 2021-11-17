@@ -3,16 +3,16 @@ import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import { Overlay } from 'react-native-elements';
 
 export default function Loading (props) {
-    const { isVisible, text } = props;
+    const { isVisible, text, theme } = props;
 
     return (
         <Overlay
             isVisible={isVisible}
-            overlayStyle={styles.overlay}
+            overlayStyle={[styles.overlay, theme.border]}
         >
             <View style={styles.view}>
-                <ActivityIndicator size='large' color='#188ea8' />
-                <Text style={styles.text}> {text} </Text>
+                <ActivityIndicator size='large' color={theme.text.color} />
+                <Text style={[styles.text, theme.text]}> {text} </Text>
             </View>
         </Overlay>
     );
@@ -23,7 +23,6 @@ const styles = StyleSheet.create({
         height: 100,
         width: 200,
         backgroundColor: '#fff',
-        borderColor: '#188ea8',
         borderWidth: 2,
         borderRadius: 10,
     },
@@ -33,7 +32,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     text: {
-        color: '#188ea8',
         marginTop: 10,
     },
 });
