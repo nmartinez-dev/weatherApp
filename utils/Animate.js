@@ -43,12 +43,6 @@ export default function Animate (props) {
                 delay: 500,
                 useNativeDriver: false,
             }),
-            Animated.timing(name, {
-                toValue: 0,
-                duration: 1000,
-                delay: 1000,
-                useNativeDriver: false,
-            }),
         ]).start(() => setAnimated(true))))
     }, []);
 
