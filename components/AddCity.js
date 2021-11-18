@@ -1,71 +1,106 @@
-import React, { useState, useRef } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Input, Button } from 'react-native-elements';
-import Toast from 'react-native-easy-toast';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View, Alert, Text } from 'react-native';
+import { Icon, Overlay } from 'react-native-elements';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { db } from '../database/Firebase';
 
-export default function AddCity ({ navigation }) {
-    const [cityName, setCityName] = useState(0);
-    const toastRef = useRef();
-
+export default function AddCity (props) {
+    const { isVisible, setIsVisible } = props;
     const citiesRef = db.ref().child('cities');
-
-    function addCity (lat, lng) {
-        
-        setCityName({lat: lat, lng: lng})
-        console.log(cityName)
-        };
     
+    const [city, setCity] = useState({});
+
+    const pushCity = (data, details) => {
+        setCity({
+            name: data.description,
+            longitude: details.geometry.location.lng,
+            latitude: details.geometry.location.lat,
+        });
+    };
+    
+    const confirm = (city) => {
+        Alert.alert(
+            '¿Desea guardar la ciudad?', city.name,
+            [{
+                text: "Guardar",
+                onPress: () => addCity(city),
+            },
+            { 
+                text: "Cancelar",
+                style: "cancel",
+            }]
+        );
+    };
+    
+    function addCity (city) {
+        citiesRef.push({
+            name: city.name,
+            route: citiesRef.push().key,
+            latitude: city.latitude,
+            longitude: city.longitude,
+        });
+        setIsVisible(false);
+    };
+
+    useEffect(() => {
+        if (city.name) {
+            confirm(city);
+        };
+    }, [city]);
 
     return (
-        <View style={styles.container}>
-            <GooglePlacesAutocomplete
-            placeholder='Search'
-            fetchDetails={true}
-        //     onPress={(data, details = null) => setCityName(typeof(
-        //     details.geometry.location.lat)
-        // )}
-            onPress={(data, details = null) => setCityName({
-              lat: details.geometry.location.lat,
-              lng: details.geometry.location.lng,
-            })}
-            query={{
-                key: 'AIzaSyAs2mTAS8Kg1R3RatIiWaEBU3SRtk4Y0CA',
-                language: 'es',
-                
-      }}
-            styles={{
-                container: { position:'absolute', width:"100%" },
-                listView: { backgroundColor: "white" },
-
-            }}
-    />
- 
-            <Toast
-                ref={toastRef}
-                position='center'
-                opacity={0.9}
-            />
-        </View>
+        <Overlay
+            isVisible={isVisible}
+            backdropStyle={{ backgroundColor: '#00000030' }}
+            overlayStyle={styles.overlay}
+            onBackdropPress={() => setIsVisible(false)}
+        >
+            <View>
+                <View style={styles.titleContainer}>
+                    <Text style={styles.title}> Buscar ciudad </Text>
+                    <Icon
+                        type='material-community'
+                        name='close'
+                        color='#000'
+                        size={25}
+                        onPress={() => setIsVisible(false)}
+                    />
+                </View>
+                <GooglePlacesAutocomplete
+                    placeholder='Buscar'
+                    fetchDetails={true}
+                    onPress={(data, details = null) => pushCity(data, details)}
+                    query={{ key: 'AIzaSyAs2mTAS8Kg1R3RatIiWaEBU3SRtk4Y0CA', language: 'es' }}
+                    styles={{
+                        description: {
+                            fontWeight: 'bold',
+                        },
+                        container: {
+                            position:'absolute',
+                            width: '100%',
+                            marginTop: 50,
+                        },
+                    }}
+                />
+            </View>
+        </Overlay>
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    input: {
-        width: '80%',
-        margin: 10,
-    },
-    btn: {
-        backgroundColor: '#188ea8',
-        margin: 10,
+    overlay: {
+        height: '90%',
+        width: '90%',
         borderRadius: 8,
-        paddingHorizontal: 20,
+        backgroundColor: '#c2c2c2f2',
+    },
+    titleContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    title: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        textAlign: 'center'
     },
 });
