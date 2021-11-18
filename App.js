@@ -26,7 +26,7 @@ export default function App() {
         };
     };
 
-    // getColor();
+    getColor();
 
     return (
         <>

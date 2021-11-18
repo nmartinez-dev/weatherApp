@@ -3,7 +3,7 @@ import { Icon } from 'react-native-elements';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import HomeStack from '../navigation/HomeStack';
-import CitiesStack from '../navigation/CitiesStack';
+import Cities from '../components/Cities';
 import Maps from '../components/Maps';
 import AboutUs from '../components/AboutUs';
 
@@ -16,7 +16,7 @@ function screenOptions (route, color) {
         case 'home-stack':
             iconName='home'
             break;
-        case 'cities-stack':
+        case 'cities':
             iconName='city'
             break;
         case 'maps':
@@ -47,7 +47,7 @@ export default function Navigation (props) {
             background: theme.backgroundColor,
             text: theme.color,
             border: theme.borderColor,
-        }
+        },
     };
 
     return (
@@ -65,8 +65,8 @@ export default function Navigation (props) {
                     options={{ title: 'Home' }}
                 />
                 <Tab.Screen
-                    name="cities-stack"
-                    component={CitiesStack}
+                    name="cities"
+                    component={Cities}
                     options={{ title: 'Ciudades' }}
                 />
                 <Tab.Screen

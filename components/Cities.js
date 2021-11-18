@@ -1,18 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, ScrollView, Alert, Text } from 'react-native';
+import { StyleSheet, View, ScrollView, Alert, ImageBackground, Text } from 'react-native';
 import { Icon, ListItem } from 'react-native-elements';
+import { useTheme } from '@react-navigation/native';
 import { db } from '../database/Firebase';
+import Background from '../assets/img/playa.jpeg';
 import Loading from '../utils/Loading';
 import Weather from './Weather';
+import AddCity from './AddCity';
 
 export default function Cities ({ navigation }) {
+    const { colors } = useTheme();
+    const [isVisible, setIsVisible] = useState(false);
+
     const [cities, setCities] = useState([]);
     const [req, saveReq] = useState({});
     const [name, saveName] = useState({});
     const [main, saveMain] = useState({});
     const [weather, saveWeather] = useState('Buenos Aires');
     const [status, saveStatus] = useState(false);
-    const [bgcolor, guardarBgcolor] = useState('rgb(71, 149, 212)');
+    const [visibleWeather, setVisibleWeather] = useState(false);
 
     const citiesRef = db.ref().child('cities');
 
@@ -32,86 +38,85 @@ export default function Cities ({ navigation }) {
 
     useEffect(() => {
         citiesRef.orderByKey().on('value', (snapshot) => {
-          var allCities = [];
-          snapshot.forEach((child) => {
-            allCities.push(child.val());
-            citiesRef.child(child.key).update({route: child.key});
-          })
-          setCities(allCities);
+            var allCities = [];
+            snapshot.forEach((child) => {
+                allCities.push(child.val());
+                citiesRef.child(child.key).update({route: child.key});
+            });
+            setCities(allCities);
         });
     }, []);
 
     const getCity = (city) => {
+        setVisibleWeather(true);
         saveWeather(city);
         saveStatus(true);
     };
 
-    const bgColorApp = { backgroundColor:bgcolor }
-
     if (cities == '') {
-        navigation.navigate('add-city')
         return (
-            <Loading isVisible={true} text='Cargando ciudades...'/>
-           
+            <Loading isVisible={true} text='Cargando ciudades...' theme={colors} />
         );
     } else {
         return (
-            <View style={[styles.container, bgColorApp]}>
+            <ImageBackground
+                source={Background}
+                resizeMode='cover'
+                style={styles.image}
+            >
+                <Text style={[styles.title, colors.background]}> Ciudades </Text>
                 <ScrollView>
-                    {
-                        cities.map((city) => {
-                            return(
-                              <>
+                    {cities.map((city) => {
+                        return (
+                            <>
                                 <View key={city.route}>
                                     <ListItem
-                                        onPress={() => getCity(city.title)}
-                                        styles={styles.list}
+                                        onPress={() => getCity(city.name)}
                                         bottomDivider={true}
+                                        onLongPress={() => removeCity(city.route, city.name)}
                                     >
                                         <ListItem.Content>
-                                            <ListItem.Title> {city.title} </ListItem.Title>
+                                            <ListItem.Title> {city.name} </ListItem.Title>
                                         </ListItem.Content>
-                                        <Icon
-                                            reverse
-                                            type='material-community'
-                                            name='close'
-                                            color='#b3b3b3'
-                                            reverseColor='#fff'
-                                            size={9}
-                                            containerStyle={{ margin: 0 }}
-                                            onPress={() => removeCity(city.route, city.title)}
-                                        />
                                     </ListItem>
                                 </View>
-                              </>
-                            );
-                        })
-                    }
+                            </>
+                        );
+                    })}
                     <Weather
                         weather={weather}
                         saveWeather={saveWeather}
                         status={status}
                         saveStatus={saveStatus}
+                        visibleWeather={visibleWeather}
+                        setVisibleWeather={setVisibleWeather}
                     />
                 </ScrollView>
                 <Icon
                     reverse
                     type='material-community'
                     name='plus'
-                    color='#188ea8'
+                    color={colors.text.color}
                     containerStyle={styles.addCities}
-                    onPress={() => navigation.navigate('add-city')}
+                    onPress={() => setIsVisible(true)}
                 />
-            </View>
+                <AddCity isVisible={isVisible} setIsVisible={setIsVisible} />
+            </ImageBackground>
         );
     };
 };
 
 const styles = StyleSheet.create({
-    container: {
+    image: {
         flex: 1,
-        backgroundColor: '#188ea80a',
-        justifyContent:'center',
+        justifyContent: "center",
+    },
+    title: {
+        textAlign: 'center',
+        fontSize: 24,
+        fontWeight: 'bold',
+        padding: 10,
+        color: '#fff',
     },
     addCities: {
         position: 'absolute',
