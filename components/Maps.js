@@ -1,8 +1,23 @@
-import React from 'react';
-import MapView, { Callout, Marker } from 'react-native-maps';
-import { StyleSheet, View } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import MapView, { Marker } from 'react-native-maps';
+import { StyleSheet } from 'react-native';
+import { db } from '../database/Firebase';
 
 export default function Map () {
+    const [markers, setMarkers] = useState([]);
+    const citiesRef = db.ref().child('cities');
+
+    useEffect(() => {
+        citiesRef.orderByKey().on('value', (snapshot) => {
+            var allMarkers = [];
+            snapshot.forEach((child) => {
+                allMarkers.push(child.val());
+            });
+            setMarkers(allMarkers);
+            console.log(allMarkers)
+        });
+    }, []);
+
     return (
         <MapView
             style={styles.map}
@@ -12,7 +27,17 @@ export default function Map () {
                 latitudeDelta: 0.0922,
                 longitudeDelta: 0.0421,
             }}
-        />
+        >
+            {markers.map((marker) => (
+                <Marker
+                    key={marker.route}
+                    coordinate={{ latitude : marker.latitude, longitude : marker.longitude }}
+                    title={marker.name}
+                    // description={'Presiona para ver la temperatura.'}
+                    onPress={() => getCity(marker.name)}
+                />
+            ))}
+        </MapView>
     );
 };
   
