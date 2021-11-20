@@ -6,16 +6,11 @@ import { db } from '../database/Firebase';
 import Background from '../assets/img/playa.jpeg';
 import Loading from '../utils/Loading';
 import Weather from './Weather';
-import AddCity from './AddCity';
 
 export default function Cities ({ navigation }) {
     const { colors } = useTheme();
-    const [isVisible, setIsVisible] = useState(false);
 
     const [cities, setCities] = useState([]);
-    const [req, saveReq] = useState({});
-    const [name, saveName] = useState({});
-    const [main, saveMain] = useState({});
     const [weather, saveWeather] = useState('Buenos Aires');
     const [status, saveStatus] = useState(false);
     const [visibleWeather, setVisibleWeather] = useState(false);
@@ -98,9 +93,8 @@ export default function Cities ({ navigation }) {
                     name='plus'
                     color={colors.text.color}
                     containerStyle={styles.addCities}
-                    onPress={() => setIsVisible(true)}
+                    onPress={() => navigation.navigate('add-city')}
                 />
-                <AddCity isVisible={isVisible} setIsVisible={setIsVisible} />
             </ImageBackground>
         );
     };

@@ -61,7 +61,7 @@ const Weather = ({ weather, saveWeather, status, saveStatus, visibleWeather, set
             <>
                 <Overlay
                     visible={visibleWeather}
-                    backdropStyle={ colors.background }
+                    backdropStyle={{ backgroundColor: '#00000044' }}
                     overlayStyle={[styles.overlay, colors.background]}
                     onBackdropPress={() => setVisibleWeather(false)}
                 >
