@@ -11,6 +11,7 @@ export default function Settings () {
         try {
             const jsonValue = JSON.stringify(value);
             await AsyncStorage.setItem('color', jsonValue);
+            await AsyncStorage.setItem('defaultColor', '#188ea8');
             toastRef.current.show('Color guardado', 1000);
         } catch (e) {
             toastRef.current.show('Fallo al guardar', 1000);

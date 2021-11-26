@@ -14,7 +14,6 @@ export default function Map () {
                 allMarkers.push(child.val());
             });
             setMarkers(allMarkers);
-            console.log(allMarkers)
         });
     }, []);
 
@@ -22,10 +21,10 @@ export default function Map () {
         <MapView
             style={styles.map}
             initialRegion={{
-                latitude: -34.636515845724354,
-                longitude: -58.479279083582114,
-                latitudeDelta: 0.0922,
-                longitudeDelta: 0.0421,
+                latitude: -37.16857202766671,
+                longitude: -57.12814386981829,
+                latitudeDelta: 2,
+                longitudeDelta: 2,
             }}
         >
             {markers.map((marker) => (
@@ -34,7 +33,7 @@ export default function Map () {
                     coordinate={{ latitude : marker.latitude, longitude : marker.longitude }}
                     title={marker.name}
                     // description={'Presiona para ver la temperatura.'}
-                    onPress={() => getCity(marker.name)}
+                    // onPress={() => getCity(marker.name)}
                 />
             ))}
         </MapView>

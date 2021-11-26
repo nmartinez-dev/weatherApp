@@ -14,7 +14,13 @@ export default function CitiesStack () {
             <Stack.Screen
                 name='cities'
                 component={Cities}
-                options={{ headerShown: false }}
+                options={{
+                    title: 'Ciudades',
+                    headerTitleAlign: 'center',
+                    headerStyle: colors.background,
+                    headerTintColor: '#fff',
+                    headerTitleStyle: { fontWeight:'bold' },
+                }}
             />
             <Stack.Screen
                 name='add-city'

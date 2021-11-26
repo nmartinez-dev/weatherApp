@@ -16,7 +16,9 @@ export default function App() {
     const getColor = async () => {
         try {
             const jsonValue = await AsyncStorage.getItem('color');
-            if (theme == '') {
+            const defaultColor = await AsyncStorage.getItem('defaultColor');
+
+            if (jsonValue == defaultColor) {
                 setTheme({
                     color: {color: '#188ea8'},
                     backgroundColor: {backgroundColor: '#188ea8'},
@@ -29,7 +31,7 @@ export default function App() {
                     borderColor: {borderColor: JSON.parse(jsonValue)},
                 });
             };
-        } catch (e) {
+        } catch (error) {
             setTheme({
                 color: {color: '#188ea8'},
                 backgroundColor: {backgroundColor: '#188ea8'},

@@ -20,19 +20,19 @@ export default function References (props) {
             </View>
             <View style={styles.overlayContent}>
                 <Text style={styles.overlayContentTitle}> Expo: </Text>
-                <Text onPress={() => Linking.openURL('https://expo.dev')}>
+                <Text onPress={() => Linking.openURL('https://expo.dev')} style={styles.overlayContentText}>
                     https://expo.dev/
                 </Text>
                 <Text style={styles.overlayContentTitle}> React Native: </Text>
-                <Text onPress={() => Linking.openURL('https://reactnative.dev/')}>
+                <Text onPress={() => Linking.openURL('https://reactnative.dev/')} style={styles.overlayContentText}>
                     https://reactnative.dev/
                 </Text>
                 <Text style={styles.overlayContentTitle}> React Navigation: </Text>
-                <Text onPress={() => Linking.openURL('https://reactnavigation.org/')}>
+                <Text onPress={() => Linking.openURL('https://reactnavigation.org/')} style={styles.overlayContentText}>
                     https://reactnavigation.org/
                 </Text>
                 <Text style={styles.overlayContentTitle}> React Native Elements: </Text>
-                <Text onPress={() => Linking.openURL('https://reactnativeelements.com/')}>
+                <Text onPress={() => Linking.openURL('https://reactnativeelements.com/')} style={styles.overlayContentText}>
                     https://reactnativeelements.com/
                 </Text>
             </View>
@@ -76,6 +76,9 @@ const styles = StyleSheet.create ({
     overlayContentTitle: {
         fontWeight: 'bold',
         marginTop: 20,
+    },
+    overlayContentText: {
+        textDecorationLine: 'underline',
     },
     closeOverlay: {
         borderBottomWidth: 1,
