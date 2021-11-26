@@ -5,6 +5,7 @@ import { useTheme } from '@react-navigation/native';
 
 const Weather = ({ weather, saveWeather, status, saveStatus, visibleWeather, setVisibleWeather }) => {
     const { colors } = useTheme();
+    const { bgClima, saveBGClima }=useState({backgroundColor:'#188ea8'})
 
     const [resultado, guardarResultado] = useState({});
 
@@ -12,7 +13,7 @@ const Weather = ({ weather, saveWeather, status, saveStatus, visibleWeather, set
         const weatherReq = async(weather) => {
             if (weather) {
                 // datos de la api del clima.
-                const appId = 'fc8ff9f409f52b1cc6757e25a0ceac04';
+                const appId = 'fc8ff9f409f52b1cc6757e25a0ceac04'; //cargar el token en appId
                 const url = `http://api.openweathermap.org/data/2.5/weather?q=${weather},argentina&appid=${appId}`;
                 console.log(url);
 
@@ -34,6 +35,8 @@ const Weather = ({ weather, saveWeather, status, saveStatus, visibleWeather, set
         };
         weatherReq(weather);
     }, [status]);
+
+
 
     const showAlert = () => {
         Alert.alert (
@@ -63,6 +66,8 @@ const Weather = ({ weather, saveWeather, status, saveStatus, visibleWeather, set
                     visible={visibleWeather}
                     backdropStyle={{ backgroundColor: '#00000044' }}
                     overlayStyle={[styles.overlay, colors.background]}
+                    overlayBackgroundColor='red'
+                    windowBackgroundColor="rgba(255, 255, 255, .5)"
                     onBackdropPress={() => setVisibleWeather(false)}
                 >
                     <View style={[styles.clima, colors.background]}>
@@ -145,6 +150,7 @@ const styles = StyleSheet.create ({
         width: 'auto',
         padding: 30,
         borderRadius: 8,
+
     },
     closeOverlay: {
         borderBottomWidth: 1,
