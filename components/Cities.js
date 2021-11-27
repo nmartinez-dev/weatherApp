@@ -17,7 +17,8 @@ export default function Cities ({ navigation }) {
 
     const citiesRef = db.ref().child('cities');
 
-    const removeCity = (route, title) => {       // resolver: no se puede eliminar el ultimo agregado
+    // Elimina la ciudad elegida de la lista
+    const removeCity = (route, title) => {       
         Alert.alert(
             '¿Desea eliminar la ciudad?', title,
             [{
@@ -41,13 +42,14 @@ export default function Cities ({ navigation }) {
             setCities(allCities);
         });
     }, []);
-
+    // Muestra en clima en la ciudad seleccionada
     const getCity = (city) => {
         setVisibleWeather(true);
         saveWeather(city);
         saveStatus(true);
     };
 
+    // Al iniciar la pagina, carga las ciudades que se encuentran en la base
     if (cities == '') {
         return (
             <Loading isVisible={true} text='Cargando ciudades...' theme={colors} />

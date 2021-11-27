@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native';
 import { db } from '../database/Firebase';
 
 export default function Map () {
-    const [markers, setMarkers] = useState([]);
+    const [markers, setMarkers] = useState([]); // Son los marcadores que aparecen en el mapa
     const citiesRef = db.ref().child('cities');
 
     useEffect(() => {
