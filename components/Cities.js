@@ -3,7 +3,7 @@ import { StyleSheet, View, ScrollView, Alert, ImageBackground, Text } from 'reac
 import { Icon, ListItem } from 'react-native-elements';
 import { useTheme } from '@react-navigation/native';
 import { db } from '../database/Firebase';
-import Background from '../assets/img/playa.jpeg';
+import Background from '../assets/img/playa.jpg';
 import Loading from '../utils/Loading';
 import Weather from './Weather';
 

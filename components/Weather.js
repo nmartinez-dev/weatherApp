@@ -6,9 +6,10 @@ import { useTheme } from '@react-navigation/native';
 const Weather = ({ weather, saveWeather, status, saveStatus, visibleWeather, setVisibleWeather }) => {
     const { colors } = useTheme();
     const { bgClima, saveBGClima }=useState({backgroundColor:'#188ea8'})
-
     const [resultado, guardarResultado] = useState({});
 
+    // el use useEffect se ejecuta al pulsar una ciudad de la lista
+    // contine la peticion a openweathermap para obtener el clima.
     useEffect(() => {
         const weatherReq = async(weather) => {
             if (weather) {
@@ -25,6 +26,9 @@ const Weather = ({ weather, saveWeather, status, saveStatus, visibleWeather, set
                     guardarResultado(resultado);
                     saveWeather(weather);
                     saveStatus(false);
+
+                    // si la ciudad a consultar no esta diponible se envia una alerta
+                    // al usuario indicando que la ciudad no esta disponible.
                     if (resultado.cod === '404') {
                         showAlert();
                     };
@@ -46,9 +50,16 @@ const Weather = ({ weather, saveWeather, status, saveStatus, visibleWeather, set
         );
     };
 
+    // como el clima nos trae la temperatura en grados kelvin
+    // usamos un factor de conversion para poder leer en grados
+    // centigrados
     const {name, main} = resultado;
     const kelvin = 273.15;
 
+
+    // al retornar verificamos si al pulsar la ciudad esta esta
+    // disponible para consultar el clima si no lo esta se envia
+    // retornamos debajo de las ciudades un view indicado esto.
     if (!main) {
         return (
             <>

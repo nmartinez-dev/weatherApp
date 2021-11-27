@@ -2,9 +2,11 @@ import React from 'react';
 import { StyleSheet, Text, View, ImageBackground } from 'react-native';
 import { Icon } from 'react-native-elements/dist/icons/Icon';
 import { useTheme } from '@react-navigation/native';
-import Background from '../assets/img/playa.jpeg';
+import Background from '../assets/img/playa.jpg';
 
 export default function Home ({ navigation }) {
+    //este es el estado que guarda la configuracion de color
+    //que el usuario guarda en la pantalla home.
     const { colors } = useTheme();
 
     return (

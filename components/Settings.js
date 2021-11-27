@@ -7,6 +7,8 @@ import Toast from 'react-native-easy-toast';
 export default function Settings () {
     const toastRef = useRef();
 
+    // guardamos el color que el usuario elija
+    // en la configuracion de la app de forma local
     const storeData = async (value) => {
         try {
             const jsonValue = JSON.stringify(value);
@@ -17,6 +19,8 @@ export default function Settings () {
         };
     };
 
+
+    // confirmacion del color que se elige para la app
     function selectedColor (color) {
         Alert.alert(
             '¿Desea cambiar el color de la app?', color,
