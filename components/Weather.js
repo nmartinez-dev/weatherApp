@@ -5,14 +5,16 @@ import { useTheme } from '@react-navigation/native';
 
 const Weather = ({ weather, saveWeather, status, saveStatus, visibleWeather, setVisibleWeather }) => {
     const { colors } = useTheme();
-
+    const { bgClima, saveBGClima }=useState({backgroundColor:'#188ea8'})
     const [resultado, guardarResultado] = useState({});
 
+    // el use useEffect se ejecuta al pulsar una ciudad de la lista
+    // contine la peticion a openweathermap para obtener el clima.
     useEffect(() => {
         const weatherReq = async(weather) => {
             if (weather) {
                 // datos de la api del clima.
-                const appId = 'fc8ff9f409f52b1cc6757e25a0ceac04';
+                const appId = 'fc8ff9f409f52b1cc6757e25a0ceac04'; //cargar el token en appId
                 const url = `http://api.openweathermap.org/data/2.5/weather?q=${weather},argentina&appid=${appId}`;
                 console.log(url);
 
@@ -24,6 +26,9 @@ const Weather = ({ weather, saveWeather, status, saveStatus, visibleWeather, set
                     guardarResultado(resultado);
                     saveWeather(weather);
                     saveStatus(false);
+
+                    // si la ciudad a consultar no esta diponible se envia una alerta
+                    // al usuario indicando que la ciudad no esta disponible.
                     if (resultado.cod === '404') {
                         showAlert();
                     };
@@ -35,6 +40,8 @@ const Weather = ({ weather, saveWeather, status, saveStatus, visibleWeather, set
         weatherReq(weather);
     }, [status]);
 
+
+
     const showAlert = () => {
         Alert.alert (
             'Error',
@@ -43,9 +50,16 @@ const Weather = ({ weather, saveWeather, status, saveStatus, visibleWeather, set
         );
     };
 
+    // como el clima nos trae la temperatura en grados kelvin
+    // usamos un factor de conversion para poder leer en grados
+    // centigrados
     const {name, main} = resultado;
     const kelvin = 273.15;
 
+
+    // al retornar verificamos si al pulsar la ciudad esta esta
+    // disponible para consultar el clima si no lo esta se envia
+    // retornamos debajo de las ciudades un view indicado esto.
     if (!main) {
         return (
             <>
@@ -61,8 +75,10 @@ const Weather = ({ weather, saveWeather, status, saveStatus, visibleWeather, set
             <>
                 <Overlay
                     visible={visibleWeather}
-                    backdropStyle={ colors.background }
+                    backdropStyle={{ backgroundColor: '#00000044' }}
                     overlayStyle={[styles.overlay, colors.background]}
+                    overlayBackgroundColor='red'
+                    windowBackgroundColor="rgba(255, 255, 255, .5)"
                     onBackdropPress={() => setVisibleWeather(false)}
                 >
                     <View style={[styles.clima, colors.background]}>
@@ -145,6 +161,7 @@ const styles = StyleSheet.create ({
         width: 'auto',
         padding: 30,
         borderRadius: 8,
+
     },
     closeOverlay: {
         borderBottomWidth: 1,

@@ -31,6 +31,12 @@ export default function Animate (props) {
             useNativeDriver: false,
         }).start(() =>
         Animated.parallel([
+            Animated.timing(name, {
+                toValue: 0,
+                duration: 400,
+                delay: 400,
+                useNativeDriver: false,
+            }),
             Animated.timing(size, {
                 toValue: 15,
                 duration: 1500,

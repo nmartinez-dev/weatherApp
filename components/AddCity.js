@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Alert, Text } from 'react-native';
-import { Icon, Overlay } from 'react-native-elements';
+import { Icon } from 'react-native-elements';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { db } from '../database/Firebase';
 
-export default function AddCity (props) {
-    const { isVisible, setIsVisible } = props;
+export default function AddCity ({ navigation }) {
     const citiesRef = db.ref().child('cities');
     
     const [city, setCity] = useState({});
@@ -39,7 +38,7 @@ export default function AddCity (props) {
             latitude: city.latitude,
             longitude: city.longitude,
         });
-        setIsVisible(false);
+        navigation.goBack();
     };
 
     useEffect(() => {
@@ -49,58 +48,31 @@ export default function AddCity (props) {
     }, [city]);
 
     return (
-        <Overlay
-            isVisible={isVisible}
-            backdropStyle={{ backgroundColor: '#00000030' }}
-            overlayStyle={styles.overlay}
-            onBackdropPress={() => setIsVisible(false)}
-        >
-            <View>
-                <View style={styles.titleContainer}>
-                    <Text style={styles.title}> Buscar ciudad </Text>
-                    <Icon
-                        type='material-community'
-                        name='close'
-                        color='#000'
-                        size={25}
-                        onPress={() => setIsVisible(false)}
-                    />
-                </View>
-                <GooglePlacesAutocomplete
-                    placeholder='Buscar'
-                    fetchDetails={true}
-                    onPress={(data, details = null) => pushCity(data, details)}
-                    query={{ key: 'AIzaSyAs2mTAS8Kg1R3RatIiWaEBU3SRtk4Y0CA', language: 'es' }}
-                    styles={{
-                        description: {
-                            fontWeight: 'bold',
-                        },
-                        container: {
-                            position:'absolute',
-                            width: '100%',
-                            marginTop: 50,
-                        },
-                    }}
-                />
-            </View>
-        </Overlay>
+        <View style={styles.container}>
+            <GooglePlacesAutocomplete
+                placeholder='Buscar'
+                fetchDetails={true}
+                onPress={(data, details = null) => pushCity(data, details)}
+                query={{ key: 'AIzaSyAs2mTAS8Kg1R3RatIiWaEBU3SRtk4Y0CA', language: 'es' }}
+                styles={{
+                    description: {
+                        fontWeight: 'bold',
+                    },
+                    container: {
+                        position:'absolute',
+                        alignSelf: 'center',
+                        width: '90%',
+                        marginTop: 50,
+                    },
+                }}
+            />
+        </View>
     );
 };
 
 const styles = StyleSheet.create({
-    overlay: {
-        height: '90%',
-        width: '90%',
-        borderRadius: 8,
-        backgroundColor: '#c2c2c2f2',
-    },
-    titleContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-    },
-    title: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        textAlign: 'center'
+    container: {
+        backgroundColor: '#00000022',
+        height: '100%',
     },
 });
