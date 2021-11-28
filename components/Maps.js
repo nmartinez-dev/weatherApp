@@ -32,8 +32,6 @@ export default function Map () {
                     key={marker.route}
                     coordinate={{ latitude : marker.latitude, longitude : marker.longitude }}
                     title={marker.name}
-                    // description={'Presiona para ver la temperatura.'}
-                    // onPress={() => getCity(marker.name)}
                 />
             ))}
         </MapView>
