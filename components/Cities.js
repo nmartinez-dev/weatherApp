@@ -37,12 +37,6 @@ export default function Cities ({ navigation }) {
         );
     };
 
-    const getCity = (city) => {
-        setVisibleWeather(true);
-        saveWeather(city);
-        saveStatus(true);
-    };
-
     useEffect(() => {
         citiesRef.orderByKey().on('value', (snapshot) => {
             var allCities = [];
