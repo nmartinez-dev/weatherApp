@@ -33,7 +33,7 @@ export default function Home ({ navigation }) {
                     </Text>
                     <View style={styles.useContainer}>
                         <Text style={styles.useTitle}> Modo de uso: </Text>
-                        <Text> - Paso 1: Vé a la sección de ciudades y agrega una ciudad al listado. Para eliminar una ciudad manten presionada la ciudad a eliminar.</Text>
+                        <Text> - Paso 1: Vé a la sección de ciudades y agrega una ciudad al listado. Para eliminar una ciudad, mantén presionada la ciudad a eliminar.</Text>
                         <Text> - Paso 2: Localiza tu ciudad en el mapa. </Text>
                         <Text> - Paso 3: Consulta la temperatura de la ciudad agregada. </Text>
                         <Text style={styles.useLetsGoTitle}> ¡Listo! </Text>

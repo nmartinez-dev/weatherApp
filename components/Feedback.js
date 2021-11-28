@@ -16,7 +16,7 @@ export default function Feedback (props) {
     return (
         <Overlay
             isVisible={visible}
-            backdropStyle={{ backgroundColor: '#00000030' }}
+            backdropStyle={{ backgroundColor: '#000000a0' }}
             overlayStyle={[styles.overlay, colors.background]}
             onBackdropPress={() => setVisible(false)}
         >

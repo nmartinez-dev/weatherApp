@@ -18,7 +18,7 @@ export default function References (props) {
     return (
         <Overlay
             isVisible={isVisible}
-            backdropStyle={{ backgroundColor: '#00000030' }}
+            backdropStyle={{ backgroundColor: '#000000a0' }}
             overlayStyle={[styles.overlay, colors.background]}
             onBackdropPress={() => setIsVisible(false)}
         >

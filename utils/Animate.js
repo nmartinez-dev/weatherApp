@@ -11,6 +11,12 @@ export default function Animate (props) {
     const [show] = useState(new Animated.Value(0));
     const [size] = useState(new Animated.Value(1));
 
+    const spinRotation = new Animated.Value(0);
+    const rotation = spinRotation.interpolate({
+        inputRange: [0, 1],
+        outputRange: ['0deg', '720deg'],
+    });
+
     useEffect(() => {
         Animated.timing(name, {
             toValue: 1,
@@ -37,6 +43,12 @@ export default function Animate (props) {
                 delay: 500,
                 useNativeDriver: false,
             }),
+            Animated.timing(spinRotation, {
+                toValue: 1,
+                duration: 1500,
+                delay: 500,
+                useNativeDriver: false,
+            }),
         ]).start(() => setAnimated(true))))
     }, []);
 
@@ -45,10 +57,10 @@ export default function Animate (props) {
             <View style={[styles.container, theme.backgroundColor]}>
                 <Animated.Text
                     style={[styles.name, {opacity: name}]}
-                > ¡ WeatherApp ! 
+                > ¡ WeatherApp !
                 </Animated.Text>
                 <Animated.Image
-                    style={[styles.image, { opacity: show, transform: {scale: size} }]}
+                    style={[styles.image, {opacity: show, transform: [{scale: size}, {rotate: rotation}]}]}
                     source={Sun}
                 /> 
             </View>
@@ -69,7 +81,6 @@ const styles = StyleSheet.create ({
     name: {
         fontSize: 35,
         fontWeight: 'bold',
-        color: '#fff',
     },
     image: {
         width: 120,
