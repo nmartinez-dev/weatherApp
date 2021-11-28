@@ -6,9 +6,10 @@ import { db } from '../database/Firebase';
 export default function AddCity ({ navigation }) {
     const citiesRef = db.ref().child('cities');
     
-    const [city, setCity] = useState({});
+    const [city, setCity] = useState({}); // Se almacena el nombre de la ciudad, latitud y longitud
 
-    const pushCity = (data, details) => {
+    // pushCity tomas los datos geograficos de la ciudad seleccionada
+    const pushCity = (data, details) => { 
         setCity({
             name: data.description,
             longitude: details.geometry.location.lng,
@@ -16,6 +17,7 @@ export default function AddCity ({ navigation }) {
         });
     };
     
+    // Confirma o cancela la ciudad seleccionada
     const confirm = (city) => {
         Alert.alert(
             '¿Desea guardar la ciudad?', city.name,
@@ -29,7 +31,7 @@ export default function AddCity ({ navigation }) {
             }]
         );
     };
-    
+    // Al confirmar, se guardan los datos en la base y la ciudad aparece en la lista
     function addCity (city) {
         citiesRef.push({
             name: city.name,
@@ -39,7 +41,7 @@ export default function AddCity ({ navigation }) {
         });
         navigation.goBack();
     };
-
+    // Cuando detecta un cambio en city, comienza el proceso de almacenamiento en la base
     useEffect(() => {
         if (city.name) {
             confirm(city);

@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native';
 import { db } from '../database/Firebase';
 
 export default function Map () {
-    const [markers, setMarkers] = useState([]);
+    const [markers, setMarkers] = useState([]); // Son los marcadores que aparecen en el mapa
     const citiesRef = db.ref().child('cities');
 
     useEffect(() => {
@@ -21,10 +21,12 @@ export default function Map () {
         <MapView
             style={styles.map}
             initialRegion={{
+
                 latitude: -37.16857202766671,
                 longitude: -57.12814386981829,
                 latitudeDelta: 2,
                 longitudeDelta: 2,
+
             }}
         >
             {markers.map((marker) => (
