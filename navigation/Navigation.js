@@ -9,6 +9,7 @@ import AboutUs from '../components/AboutUs';
 
 const Tab = createMaterialBottomTabNavigator();
 
+// función para seleccionar el ícono del tab navigation
 function screenOptions (route, color) {
     let iconName;
 
@@ -42,6 +43,7 @@ function screenOptions (route, color) {
 export default function Navigation (props) {
     const { theme } = props;
 
+    // propagamos tema en navigation
     const MyTheme = {
         colors: {
             background: theme.backgroundColor,

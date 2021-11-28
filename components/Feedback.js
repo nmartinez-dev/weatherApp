@@ -7,10 +7,12 @@ import * as Linking from 'expo-linking';
 export default function Feedback (props) {
     const { visible, setVisible } = props;
     const { colors } = useTheme();
-    //en este componente tenemos la opcion de contactarnos.
-    //al dar click al boton se te abrira el cliente de email
-    //predeterminado en el celular para que el usuario se contacte
-    //y nos pueda dejar sus dudas y sugerencias 
+
+    // en este componente está la opción de contactarnos.
+    // al dar click al botón se te abrirá el cliente de email
+    // predeterminado en el celular para que el usuario se contacte
+    // y nos pueda dejar sus dudas y sugerencias
+    
     return (
         <Overlay
             isVisible={visible}

@@ -5,20 +5,21 @@ import { useTheme } from '@react-navigation/native';
 
 const Weather = ({ weather, saveWeather, status, saveStatus, visibleWeather, setVisibleWeather }) => {
     const { colors } = useTheme();
-    const { bgClima, saveBGClima }=useState({backgroundColor:'#188ea8'})
+    const {bgClima, saveBGClima} = useState({backgroundColor: '#188ea8'});
     const [resultado, guardarResultado] = useState({});
 
     // el use useEffect se ejecuta al pulsar una ciudad de la lista
-    // contine la peticion a openweathermap para obtener el clima.
+    // contiene la petición a openweathermap para obtener el clima.
     useEffect(() => {
         const weatherReq = async(weather) => {
             if (weather) {
+
                 // datos de la api del clima.
                 const appId = 'fc8ff9f409f52b1cc6757e25a0ceac04'; //cargar el token en appId
                 const url = `http://api.openweathermap.org/data/2.5/weather?q=${weather},argentina&appid=${appId}`;
                 console.log(url);
 
-                // en caso de que tenga algun error saco una excepcion
+                // en caso de que tenga algun error saco una excepción
                 try {
                     const respuesta = await fetch(url);
                     const resultado = await respuesta.json();
@@ -27,7 +28,7 @@ const Weather = ({ weather, saveWeather, status, saveStatus, visibleWeather, set
                     saveWeather(weather);
                     saveStatus(false);
 
-                    // si la ciudad a consultar no esta diponible se envia una alerta
+                    // si la ciudad a consultar no esta diponible se envía una alerta
                     // al usuario indicando que la ciudad no esta disponible.
                     if (resultado.cod === '404') {
                         showAlert();
@@ -40,8 +41,6 @@ const Weather = ({ weather, saveWeather, status, saveStatus, visibleWeather, set
         weatherReq(weather);
     }, [status]);
 
-
-
     const showAlert = () => {
         Alert.alert (
             'Error',
@@ -51,14 +50,13 @@ const Weather = ({ weather, saveWeather, status, saveStatus, visibleWeather, set
     };
 
     // como el clima nos trae la temperatura en grados kelvin
-    // usamos un factor de conversion para poder leer en grados
-    // centigrados
+    // usamos un factor de conversión para poder leer en grados
+    // centígrados
     const {name, main} = resultado;
     const kelvin = 273.15;
 
-
-    // al retornar verificamos si al pulsar la ciudad esta esta
-    // disponible para consultar el clima si no lo esta se envia
+    // al retornar verificamos si al pulsar la ciudad esta
+    // disponible para consultar el clima, y si no lo está, se envía.
     // retornamos debajo de las ciudades un view indicado esto.
     if (!main) {
         return (
@@ -120,7 +118,6 @@ const Weather = ({ weather, saveWeather, status, saveStatus, visibleWeather, set
                             />
                         }
                     />
-
                 </Overlay>
             </>
         );

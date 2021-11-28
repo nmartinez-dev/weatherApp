@@ -5,8 +5,9 @@ import { useTheme } from '@react-navigation/native';
 import Background from '../assets/img/playa.jpg';
 
 export default function Home ({ navigation }) {
-    //este es el estado que guarda la configuracion de color
-    //que el usuario guarda en la pantalla home.
+
+    // este es el estado que guarda la configuración de color
+    // que el usuario guarda en la pantalla settings.
     const { colors } = useTheme();
 
     return (
