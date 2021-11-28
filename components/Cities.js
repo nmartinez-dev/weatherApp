@@ -54,7 +54,6 @@ export default function Cities ({ navigation }) {
         saveWeather(city);
         saveStatus(true);
     };
-
     
     // Al iniciar la pagina, carga las ciudades que se encuentran en la base
     if (cities == 'empty') {

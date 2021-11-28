@@ -21,12 +21,10 @@ export default function Map () {
         <MapView
             style={styles.map}
             initialRegion={{
-
                 latitude: -37.16857202766671,
                 longitude: -57.12814386981829,
                 latitudeDelta: 2,
                 longitudeDelta: 2,
-
             }}
         >
             {markers.map((marker) => (

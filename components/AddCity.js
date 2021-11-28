@@ -31,6 +31,7 @@ export default function AddCity ({ navigation }) {
             }]
         );
     };
+
     // Al confirmar, se guardan los datos en la base y la ciudad aparece en la lista
     function addCity (city) {
         citiesRef.push({
@@ -41,6 +42,7 @@ export default function AddCity ({ navigation }) {
         });
         navigation.goBack();
     };
+    
     // Cuando detecta un cambio en city, comienza el proceso de almacenamiento en la base
     useEffect(() => {
         if (city.name) {
