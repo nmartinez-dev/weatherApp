@@ -15,3 +15,8 @@ Persona Canvas
 ./persona_canvas_tp_heladeria.jpg
 
 <p align="center"><img src="persona_canvas_tp_heladeria.jpg" /></p>
+
+<p align="center"><img src="home.png" /></p>
+<p align="center"><img src="color.png" /></p>
+<p align="center"><img src="cities.png" /></p>
+<p align="center"><img src="map.png" /></p>
