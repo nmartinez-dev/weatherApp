@@ -4,7 +4,7 @@ import { LogBox, StatusBar } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Animate from './utils/Animate';
 
-LogBox.ignoreAllLogs();         // quitar antes de renderizar
+LogBox.ignoreAllLogs();
 
 export default function App() {
     const [theme, setTheme] = useState({
@@ -13,10 +13,13 @@ export default function App() {
         borderColor: {borderColor: '#188ea8'},
     });
 
+    // establecemos el tema a usar en toda la app y lo propagamos
     const getColor = async () => {
         try {
             const jsonValue = await AsyncStorage.getItem('color');
-            if (theme == '') {
+            const defaultColor = await AsyncStorage.getItem('defaultColor');
+
+            if (jsonValue == defaultColor) {
                 setTheme({
                     color: {color: '#188ea8'},
                     backgroundColor: {backgroundColor: '#188ea8'},
@@ -29,7 +32,7 @@ export default function App() {
                     borderColor: {borderColor: JSON.parse(jsonValue)},
                 });
             };
-        } catch (e) {
+        } catch (error) {
             setTheme({
                 color: {color: '#188ea8'},
                 backgroundColor: {backgroundColor: '#188ea8'},

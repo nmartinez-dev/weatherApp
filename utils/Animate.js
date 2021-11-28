@@ -15,7 +15,7 @@ export default function Animate (props) {
     const rotation = spinRotation.interpolate({
         inputRange: [0, 1],
         outputRange: ['0deg', '720deg'],
-    })
+    });
 
     useEffect(() => {
         Animated.timing(name, {
@@ -81,6 +81,7 @@ const styles = StyleSheet.create ({
     name: {
         fontSize: 35,
         fontWeight: 'bold',
+        color: '#ffffff',
     },
     image: {
         width: 120,

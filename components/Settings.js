@@ -8,19 +8,19 @@ export default function Settings () {
     const toastRef = useRef();
 
     // guardamos el color que el usuario elija
-    // en la configuracion de la app de forma local
+    // en la configuración de la app de forma local
     const storeData = async (value) => {
         try {
             const jsonValue = JSON.stringify(value);
             await AsyncStorage.setItem('color', jsonValue);
+            await AsyncStorage.setItem('defaultColor', '#188ea8');
             toastRef.current.show('Color guardado', 1000);
         } catch (e) {
             toastRef.current.show('Fallo al guardar', 1000);
         };
     };
 
-
-    // confirmacion del color que se elige para la app
+    // confirmación del color que se elige para la app
     function selectedColor (color) {
         Alert.alert(
             '¿Desea cambiar el color de la app?', color,

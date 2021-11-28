@@ -8,16 +8,17 @@ export default function References (props) {
     const { isVisible, setIsVisible } = props;
     const { colors } = useTheme();
 
-    //en este sector tenemos las referencias de todo lo que usamos
-    //para poder llevar a delante el proyecto de la app.
-    //encontraremos las fuetnes de todas las liubrerias y packages utilizados.
-    //solo falta agregar la libreria de googlemaps. que por una cuestion de
-    //longitud del enlace decidimos no agregar para no afectar a la visualizacion
-    //del componente.
+    // en este sector tenemos las referencias de todo lo que usamos
+    // para poder llevar adelante el proyecto de la app.
+    // encontraremos las fuentes de todas las librerias y packages utilizados.
+    // solo falta agregar la libreria de googlemaps. que por una cuestión de
+    // longitud del enlace decidimos no agregar para no afectar a la visualización
+    // del componente.
+
     return (
         <Overlay
             isVisible={isVisible}
-            backdropStyle={{ backgroundColor: '#00000030' }}
+            backdropStyle={{ backgroundColor: '#000000a0' }}
             overlayStyle={[styles.overlay, colors.background]}
             onBackdropPress={() => setIsVisible(false)}
         >
@@ -26,19 +27,19 @@ export default function References (props) {
             </View>
             <View style={styles.overlayContent}>
                 <Text style={styles.overlayContentTitle}> Expo: </Text>
-                <Text onPress={() => Linking.openURL('https://expo.dev')}>
+                <Text onPress={() => Linking.openURL('https://expo.dev')} style={styles.overlayContentText}>
                     https://expo.dev/
                 </Text>
                 <Text style={styles.overlayContentTitle}> React Native: </Text>
-                <Text onPress={() => Linking.openURL('https://reactnative.dev/')}>
+                <Text onPress={() => Linking.openURL('https://reactnative.dev/')} style={styles.overlayContentText}>
                     https://reactnative.dev/
                 </Text>
                 <Text style={styles.overlayContentTitle}> React Navigation: </Text>
-                <Text onPress={() => Linking.openURL('https://reactnavigation.org/')}>
+                <Text onPress={() => Linking.openURL('https://reactnavigation.org/')} style={styles.overlayContentText}>
                     https://reactnavigation.org/
                 </Text>
                 <Text style={styles.overlayContentTitle}> React Native Elements: </Text>
-                <Text onPress={() => Linking.openURL('https://reactnativeelements.com/')}>
+                <Text onPress={() => Linking.openURL('https://reactnativeelements.com/')} style={styles.overlayContentText}>
                     https://reactnativeelements.com/
                 </Text>
             </View>
@@ -82,6 +83,9 @@ const styles = StyleSheet.create ({
     overlayContentTitle: {
         fontWeight: 'bold',
         marginTop: 20,
+    },
+    overlayContentText: {
+        textDecorationLine: 'underline',
     },
     closeOverlay: {
         borderBottomWidth: 1,
