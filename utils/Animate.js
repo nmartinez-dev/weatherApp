@@ -15,7 +15,7 @@ export default function Animate (props) {
     const rotation = spinRotation.interpolate({
         inputRange: [0, 1],
         outputRange: ['0deg', '720deg'],
-    })
+    });
 
     useEffect(() => {
         Animated.timing(name, {
