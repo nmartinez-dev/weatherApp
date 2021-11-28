@@ -4,7 +4,7 @@ import { Icon, ListItem } from 'react-native-elements';
 import { useTheme } from '@react-navigation/native';
 import Toast from 'react-native-easy-toast';
 import { db } from '../database/Firebase';
-import Background from '../assets/img/playa.jpeg';
+import Background from '../assets/img/playa.jpg';
 import Loading from '../utils/Loading';
 import Weather from './Weather';
 

@@ -8,6 +8,12 @@ export default function References (props) {
     const { isVisible, setIsVisible } = props;
     const { colors } = useTheme();
 
+    //en este sector tenemos las referencias de todo lo que usamos
+    //para poder llevar a delante el proyecto de la app.
+    //encontraremos las fuetnes de todas las liubrerias y packages utilizados.
+    //solo falta agregar la libreria de googlemaps. que por una cuestion de
+    //longitud del enlace decidimos no agregar para no afectar a la visualizacion
+    //del componente.
     return (
         <Overlay
             isVisible={isVisible}
@@ -49,7 +55,7 @@ export default function References (props) {
                         size={17}
                     />
                 }
-            />                    
+            />
         </Overlay>
     );
 };

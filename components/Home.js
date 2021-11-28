@@ -2,9 +2,11 @@ import React from 'react';
 import { StyleSheet, Text, View, ImageBackground } from 'react-native';
 import { Icon } from 'react-native-elements/dist/icons/Icon';
 import { useTheme } from '@react-navigation/native';
-import Background from '../assets/img/playa.jpeg';
+import Background from '../assets/img/playa.jpg';
 
 export default function Home ({ navigation }) {
+    //este es el estado que guarda la configuracion de color
+    //que el usuario guarda en la pantalla home.
     const { colors } = useTheme();
 
     return (
@@ -30,12 +32,12 @@ export default function Home ({ navigation }) {
                     </Text>
                     <View style={styles.useContainer}>
                         <Text style={styles.useTitle}> Modo de uso: </Text>
-                        <Text> - Paso 1: Vé a la sección de ciudades y agrega una ciudad al listado. </Text>
+                        <Text> - Paso 1: Vé a la sección de ciudades y agrega una ciudad al listado. Para eliminar una ciudad manten presionada la ciudad a eliminar.</Text>
                         <Text> - Paso 2: Localiza tu ciudad en el mapa. </Text>
                         <Text> - Paso 3: Consulta la temperatura de la ciudad agregada. </Text>
                         <Text style={styles.useLetsGoTitle}> ¡Listo! </Text>
                         <Text style={styles.useLetsGoSubtitle}>
-                            ¡Tus ciudades aparecerán en la lista y podrás consultar la 
+                            ¡Tus ciudades aparecerán en la lista y podrás consultar la
                             temperatura cuando lo desees!
                         </Text>
                     </View>
