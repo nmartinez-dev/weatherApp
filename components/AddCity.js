@@ -56,7 +56,7 @@ export default function AddCity ({ navigation }) {
                 placeholder='Buscar'
                 fetchDetails={true}
                 onPress={(data, details = null) => pushCity(data, details)}
-                query={{ key: 'AIzaSyAs2mTAS8Kg1R3RatIiWaEBU3SRtk4Y0CA', language: 'es' }}
+                query={{ key: 'YOUR_API_KEY', language: 'es' }}
                 styles={{
                     description: {
                         fontWeight: 'bold',

@@ -15,7 +15,7 @@ const Weather = ({ weather, saveWeather, status, saveStatus, visibleWeather, set
             if (weather) {
 
                 // datos de la api del clima.
-                const appId = 'fc8ff9f409f52b1cc6757e25a0ceac04'; //cargar el token en appId
+                const appId = ''; //cargar el token en appId
                 const url = `http://api.openweathermap.org/data/2.5/weather?q=${weather},argentina&appid=${appId}`;
                 console.log(url);
 
